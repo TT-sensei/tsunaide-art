@@ -45,7 +45,7 @@ function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(
     let q=xy(i),vis=document.createElementNS(NS,'circle');
     vis.setAttribute('cx',q.x);
     vis.setAttribute('cy',q.y);
-    vis.setAttribute('r',state.selected===i&&interactive?10:6);
+    vis.setAttribute('r',state.selected===i&&interactive?11:7.5);
     vis.classList.add('dot','visible');
     if(state.selected===i&&interactive)vis.classList.add('selected');
     svg.append(vis);
@@ -54,7 +54,7 @@ function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(
       let hit=document.createElementNS(NS,'circle');
       hit.setAttribute('cx',q.x);
       hit.setAttribute('cy',q.y);
-      hit.setAttribute('r',24);
+      hit.setAttribute('r',30);
       hit.classList.add('dot','hit');
       hit.dataset.point=i;
       svg.append(hit);
@@ -89,7 +89,7 @@ function addLine(from,to){
 }
 function startDrag(svg,e){
   if(state.tool!=='draw')return;
-  let point=nearestPoint(svg,e,34);
+  let point=nearestPoint(svg,e,44);
   if(point===null)return;
   drag.active=true;
   drag.start=point;
@@ -105,7 +105,7 @@ function moveDrag(svg,e){
 }
 function endDrag(svg,e){
   if(!drag.active||drag.pointerId!==e.pointerId)return;
-  let end=nearestPoint(svg,e,34);
+  let end=nearestPoint(svg,e,44);
   let didMove=drag.moved;
   let start=drag.start;
   if(end!==null&&end!==start&&didMove){
