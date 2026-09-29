@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#f7f3ea">
+  <title>つないでアート</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <div><h1>つないでアート</h1><p>点と点をつないで、作品をつくろう</p></div>
+  <button id="galleryBtn" class="button secondary">作品を見る</button>
+</header>
+<nav class="mode-tabs" aria-label="制作モード">
+  <button data-mode="trace" class="tab active">お手本</button>
+  <button data-mode="arrange" class="tab">アレンジ</button>
+  <button data-mode="free" class="tab">じゆうにつくる</button>
+</nav>
+<main>
+  <section id="message" class="message">左のお手本を見ながら、点をつないでみよう</section>
+  <div id="workspace" class="workspace">
+    <section id="samplePanel" class="panel sample-panel">
+      <div class="panel-title"><h2>お手本</h2><button id="chooseSampleBtn" class="button small">お手本をえらぶ</button></div>
+      <div id="sampleName" class="work-name"></div>
+      <div id="sampleBoard" class="board-wrap"></div>
+      <div id="matchInfo" class="match-info" aria-live="polite"></div>
+    </section>
+    <section class="panel creation-panel">
+      <div class="panel-title"><h2>わたしの作品</h2><button id="previewBtn" class="button small secondary">点をかくす</button></div>
+      <div id="artBoard" class="board-wrap"></div>
+    </section>
+  </div>
+</main>
+<footer class="toolbar" aria-label="制作ツール">
+  <div class="tool-group">
+    <button id="drawBtn" class="tool active">✏️<span>かく</span></button>
+    <button id="eraseBtn" class="tool">消<span>けす</span></button>
+    <button id="undoBtn" class="tool">↶<span>もどす</span></button>
+    <button id="redoBtn" class="tool">↷<span>やりなおす</span></button>
+  </div>
+  <div class="tool-group colors" id="colors" aria-label="線の色"></div>
+  <div class="tool-group widths" aria-label="線の太さ">
+    <button data-width="3" class="width-btn"><i style="height:3px"></i><span>ほそい</span></button>
+    <button data-width="6" class="width-btn active"><i style="height:6px"></i><span>ふつう</span></button>
+    <button data-width="10" class="width-btn"><i style="height:10px"></i><span>ふとい</span></button>
+  </div>
+  <div class="tool-group">
+    <label class="bg-label">背景 <input id="bgColor" type="color" value="#ffffff"></label>
+    <button id="clearBtn" class="tool danger">×<span>ぜんぶけす</span></button>
+    <button id="saveBtn" class="tool primary">💾<span>ほぞん</span></button>
+    <button id="pngBtn" class="tool primary">⇩<span>PNG</span></button>
+  </div>
+</footer>
+
+<dialog id="sampleDialog"><form method="dialog"><div class="dialog-head"><h2>お手本をえらぶ</h2><button class="close" aria-label="閉じる">×</button></div><div id="sampleList" class="card-grid"></div></form></dialog>
+<dialog id="galleryDialog"><div class="dialog-head"><h2>保存した作品</h2><button class="close" data-close="gallery" aria-label="閉じる">×</button></div><div id="galleryList" class="card-grid"></div><p id="emptyGallery" class="empty">まだ作品はありません。</p></dialog>
+<dialog id="previewDialog"><div class="dialog-head"><h2 id="previewTitle">作品</h2><button class="close" data-close="preview" aria-label="閉じる">×</button></div><div id="previewBoard" class="preview-board"></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body></html>
