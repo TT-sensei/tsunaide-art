@@ -17,12 +17,122 @@ const samples=[
  {id:'geo',name:'ひろがるもよう',level:'ちょっとむずかしい',lines:[line(p(0,0),p(9,9),'#d94e4e'),line(p(0,9),p(9,0),'#3c82c4'),line(p(0,0),p(0,9),'#e0bd35'),line(p(0,9),p(9,9),'#4d9761'),line(p(9,9),p(9,0),'#6657b8'),line(p(9,0),p(0,0),'#e38b35'),line(p(0,4),p(4,9),'#c45a91'),line(p(4,9),p(9,4),'#c45a91'),line(p(9,4),p(4,0),'#c45a91'),line(p(4,0),p(0,4),'#c45a91')]}
 ];
 let state={mode:'trace',lines:[],background:'#ffffff',color:COLORS[0],width:6,tool:'draw',selected:null,showDots:true,undo:[],redo:[],sample:samples[0]};
+let drag={active:false,start:null,moved:false,pointerId:null,preview:null,suppressClick:false};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function xy(i){return {x:PAD+(i%GRID)*STEP,y:PAD+Math.floor(i/GRID)*STEP}}
 function key(l){return [Math.min(l.from,l.to),Math.max(l.from,l.to)].join('-')}
 function snapshot(){return JSON.stringify({lines:state.lines,background:state.background})}
 function commit(){state.undo.push(snapshot());if(state.undo.length>60)state.undo.shift();state.redo=[]}
-function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;state.background=x.background;$('#bgColor').value=x.background;state.selected=null;renderArt()}
+function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(work,{interactive=false,dots=true}={}){
+  let svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 '+SIZE+' '+SIZE);
+  svg.classList.add('board-svg');
+  svg.style.background=work.background||'#fff';
+
+  (work.lines||[]).forEach((l,idx)=>{
+    let a=xy(l.from),b=xy(l.to),el=document.createElementNS(NS,'line');
+    Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:l.color,'stroke-width':l.width}).forEach(([k,v])=>el.setAttribute(k,v));
+    el.classList.add('art-line');
+    if(interactive)el.addEventListener('click',e=>{
+      e.stopPropagation();
+      if(drag.suppressClick){drag.suppressClick=false;return}
+      if(state.tool==='erase'){commit();state.lines.splice(idx,1);renderArt()}
+    });
+    svg.append(el);
+  });
+
+  if(dots)for(let i=0;i<GRID*GRID;i++){
+    let q=xy(i),vis=document.createElementNS(NS,'circle');
+    vis.setAttribute('cx',q.x);
+    vis.setAttribute('cy',q.y);
+    vis.setAttribute('r',state.selected===i&&interactive?10:6);
+    vis.classList.add('dot','visible');
+    if(state.selected===i&&interactive)vis.classList.add('selected');
+    svg.append(vis);
+
+    if(interactive){
+      let hit=document.createElementNS(NS,'circle');
+      hit.setAttribute('cx',q.x);
+      hit.setAttribute('cy',q.y);
+      hit.setAttribute('r',24);
+      hit.classList.add('dot','hit');
+      hit.dataset.point=i;
+      hit.addEventListener('click',e=>{
+        e.stopPropagation();
+        if(drag.suppressClick){drag.suppressClick=false;return}
+        pointClick(i);
+      });
+      svg.append(hit);
+    }
+  }
+
+  if(interactive){
+    svg.addEventListener('pointerdown',e=>startDrag(svg,e));
+    svg.addEventListener('pointermove',e=>moveDrag(svg,e));
+    svg.addEventListener('pointerup',e=>endDrag(svg,e));
+    svg.addEventListener('pointercancel',e=>{
+      if(drag.active&&drag.pointerId===e.pointerId){
+        clearDrag(svg);
+        state.selected=null;
+        renderArt();
+      }
+    });
+  }
+  return svg;
+}
+e=false;
+  drag.start=null;
+  drag.moved=false;
+  drag.pointerId=null;
+}
+function addLine(from,to){
+  if(from===null||to===null||from===to)return;
+  let next=line(from,to,state.color,state.width);
+  if(!state.lines.some(l=>key(l)===key(next))){commit();state.lines.push(next)}
+  state.selected=null;
+  renderArt();
+}
+function startDrag(svg,e){
+  if(state.tool!=='draw')return;
+  let point=nearestPoint(svg,e,34);
+  if(point===null)return;
+  drag.active=true;
+  drag.start=point;
+  drag.moved=false;
+  drag.pointerId=e.pointerId;
+  try{svg.setPointerCapture(e.pointerId)}catch(_){}
+  state.selected=point;
+  renderArt();
+}
+function moveDrag(svg,e){
+  if(!drag.active||drag.pointerId!==e.pointerId)return;
+  let q=svgPoint(svg,e);
+  if(Math.hypot(q.x-xy(drag.start).x,q.y-xy(drag.start).y)>7)drag.moved=true;
+  makePreview(svg,drag.start,q);
+}
+function endDrag(svg,e){
+  if(!drag.active||drag.pointerId!==e.pointerId)return;
+  let end=nearestPoint(svg,e,34);
+  let didMove=drag.moved;
+  let start=drag.start;
+  if(end!==null&&end!==start&&didMove){
+    clearDrag(svg);
+    addLine(start,end);
+    drag.suppressClick=true;
+    setTimeout(()=>{drag.suppressClick=false},0);
+    return;
+  }
+  clearDrag(svg);
+  if(!didMove){
+    state.selected=start;
+    renderArt();
+  }else{
+    state.selected=null;
+    renderArt();
+    drag.suppressClick=true;
+    setTimeout(()=>{drag.suppressClick=false},0);
+  }
+}
 function svgFor(work,{interactive=false,dots=true}={}){let svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox',`0 0 ${SIZE} ${SIZE}`);svg.classList.add('board-svg');svg.style.background=work.background||'#fff';
   (work.lines||[]).forEach((l,idx)=>{let a=xy(l.from),b=xy(l.to),el=document.createElementNS(NS,'line');Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:l.color,'stroke-width':l.width}).forEach(([k,v])=>el.setAttribute(k,v));el.classList.add('art-line');if(interactive)el.addEventListener('click',e=>{e.stopPropagation();if(state.tool==='erase'){commit();state.lines.splice(idx,1);renderArt()}});svg.append(el)});
   if(dots)for(let i=0;i<GRID*GRID;i++){let q=xy(i),vis=document.createElementNS(NS,'circle');vis.setAttribute('cx',q.x);vis.setAttribute('cy',q.y);vis.setAttribute('r',state.selected===i&&interactive?10:6);vis.classList.add('dot','visible');if(state.selected===i&&interactive)vis.classList.add('selected');svg.append(vis);if(interactive){let hit=document.createElementNS(NS,'circle');hit.setAttribute('cx',q.x);hit.setAttribute('cy',q.y);hit.setAttribute('r',20);hit.classList.add('dot','hit');hit.dataset.point=i;hit.addEventListener('click',()=>pointClick(i));svg.append(hit)}}return svg}
