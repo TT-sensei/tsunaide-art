@@ -57,11 +57,6 @@ function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(
       hit.setAttribute('r',24);
       hit.classList.add('dot','hit');
       hit.dataset.point=i;
-      hit.addEventListener('click',e=>{
-        e.stopPropagation();
-        if(drag.suppressClick){drag.suppressClick=false;return}
-        pointClick(i);
-      });
       svg.append(hit);
     }
   }
@@ -101,8 +96,6 @@ function startDrag(svg,e){
   drag.moved=false;
   drag.pointerId=e.pointerId;
   try{svg.setPointerCapture(e.pointerId)}catch(_){}
-  state.selected=point;
-  renderArt();
 }
 function moveDrag(svg,e){
   if(!drag.active||drag.pointerId!==e.pointerId)return;
@@ -124,8 +117,9 @@ function endDrag(svg,e){
   }
   clearDrag(svg);
   if(!didMove){
-    state.selected=start;
-    renderArt();
+    pointClick(start);
+    drag.suppressClick=true;
+    setTimeout(()=>{drag.suppressClick=false},0);
   }else{
     state.selected=null;
     renderArt();
