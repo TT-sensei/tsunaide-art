@@ -23,22 +23,119 @@ function xy(i){return {x:PAD+(i%GRID)*STEP,y:PAD+Math.floor(i/GRID)*STEP}}
 function key(l){return [Math.min(l.from,l.to),Math.max(l.from,l.to)].join('-')}
 function snapshot(){return JSON.stringify({lines:state.lines,background:state.background})}
 function commit(){state.undo.push(snapshot());if(state.undo.length>60)state.undo.shift();state.redo=[]}
-function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(work,{interactive=false,dots=true}={}){
+function restore(raw){
+  let x=JSON.parse(raw);
+  state.lines=x.lines;
+  state.background=x.background;
+  $('#bgColor').value=x.background;
+  state.selected=null;
+  renderArt();
+}
+function svgPoint(svg,e){
+  let pt=svg.createSVGPoint();
+  pt.x=e.clientX;
+  pt.y=e.clientY;
+  let local=pt.matrixTransform(svg.getScreenCTM().inverse());
+  return {x:local.x,y:local.y};
+}
+function nearestPoint(svg,e,maxDistance=44){
+  let q=svgPoint(svg,e),best=null,bestDist=Infinity;
+  for(let i=0;i<GRID*GRID;i++){
+    let d=xy(i),dist=Math.hypot(q.x-d.x,q.y-d.y);
+    if(dist<bestDist){bestDist=dist;best=i}
+  }
+  return bestDist<=maxDistance?best:null;
+}
+function makePreview(svg,start,point){
+  if(!drag.preview){
+    drag.preview=document.createElementNS(NS,'line');
+    drag.preview.classList.add('drag-preview');
+    svg.append(drag.preview);
+  }
+  let a=xy(start);
+  drag.preview.setAttribute('x1',a.x);
+  drag.preview.setAttribute('y1',a.y);
+  drag.preview.setAttribute('x2',point.x);
+  drag.preview.setAttribute('y2',point.y);
+  drag.preview.setAttribute('stroke',state.color);
+  drag.preview.setAttribute('stroke-width',state.width);
+}
+function clearDrag(svg){
+  if(drag.preview){drag.preview.remove();drag.preview=null}
+  if(svg&&drag.pointerId!==null){try{svg.releasePointerCapture(drag.pointerId)}catch(_){}}
+  drag.active=false;
+  drag.start=null;
+  drag.moved=false;
+  drag.pointerId=null;
+}
+function addLine(from,to){
+  if(from===null||to===null||from===to)return;
+  let next=line(from,to,state.color,state.width);
+  if(!state.lines.some(l=>key(l)===key(next))){commit();state.lines.push(next)}
+  state.selected=null;
+  renderArt();
+}
+function startDrag(svg,e){
+  if(state.tool!=='draw')return;
+  let point=nearestPoint(svg,e,44);
+  if(point===null)return;
+  drag.active=true;
+  drag.start=point;
+  drag.moved=false;
+  drag.pointerId=e.pointerId;
+  try{svg.setPointerCapture(e.pointerId)}catch(_){}
+}
+function moveDrag(svg,e){
+  if(!drag.active||drag.pointerId!==e.pointerId)return;
+  let q=svgPoint(svg,e);
+  if(Math.hypot(q.x-xy(drag.start).x,q.y-xy(drag.start).y)>7)drag.moved=true;
+  makePreview(svg,drag.start,q);
+}
+function endDrag(svg,e){
+  if(!drag.active||drag.pointerId!==e.pointerId)return;
+  let end=nearestPoint(svg,e,44);
+  let didMove=drag.moved;
+  let start=drag.start;
+  clearDrag(svg);
+  if(end!==null&&end!==start&&didMove){
+    addLine(start,end);
+    return;
+  }
+  if(!didMove){
+    pointClick(start);
+    return;
+  }
+  state.selected=null;
+  renderArt();
+}
+function svgFor(work,{interactive=false,dots=true}={}){
   let svg=document.createElementNS(NS,'svg');
   svg.setAttribute('viewBox','0 0 '+SIZE+' '+SIZE);
   svg.classList.add('board-svg');
   svg.style.background=work.background||'#fff';
 
   (work.lines||[]).forEach((l,idx)=>{
-    let a=xy(l.from),b=xy(l.to),el=document.createElementNS(NS,'line');
+    let a=xy(l.from),b=xy(l.to);
+    let el=document.createElementNS(NS,'line');
     Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:l.color,'stroke-width':l.width}).forEach(([k,v])=>el.setAttribute(k,v));
     el.classList.add('art-line');
-    if(interactive)el.addEventListener('click',e=>{
-      e.stopPropagation();
-      if(drag.suppressClick){drag.suppressClick=false;return}
-      if(state.tool==='erase'){commit();state.lines.splice(idx,1);renderArt()}
-    });
     svg.append(el);
+
+    if(interactive){
+      let hit=document.createElementNS(NS,'line');
+      Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:'transparent','stroke-width':Math.max(30,l.width+24)}).forEach(([k,v])=>hit.setAttribute(k,v));
+      hit.classList.add('line-hit');
+      hit.addEventListener('click',e=>{
+        e.stopPropagation();
+        if(state.tool==='erase'){
+          commit();
+          state.lines.splice(idx,1);
+          state.selected=null;
+          renderArt();
+        }
+      });
+      svg.append(hit);
+    }
   });
 
   if(dots)for(let i=0;i<GRID*GRID;i++){
@@ -75,62 +172,12 @@ function restore(raw){let x=JSON.parse(raw);state.lines=x.lines;function svgFor(
   }
   return svg;
 }
-e=false;
-  drag.start=null;
-  drag.moved=false;
-  drag.pointerId=null;
-}
-function addLine(from,to){
-  if(from===null||to===null||from===to)return;
-  let next=line(from,to,state.color,state.width);
-  if(!state.lines.some(l=>key(l)===key(next))){commit();state.lines.push(next)}
-  state.selected=null;
-  renderArt();
-}
-function startDrag(svg,e){
+function pointClick(i){
   if(state.tool!=='draw')return;
-  let point=nearestPoint(svg,e,44);
-  if(point===null)return;
-  drag.active=true;
-  drag.start=point;
-  drag.moved=false;
-  drag.pointerId=e.pointerId;
-  try{svg.setPointerCapture(e.pointerId)}catch(_){}
+  if(state.selected===null){state.selected=i;renderArt();return}
+  if(state.selected===i){state.selected=null;renderArt();return}
+  addLine(state.selected,i);
 }
-function moveDrag(svg,e){
-  if(!drag.active||drag.pointerId!==e.pointerId)return;
-  let q=svgPoint(svg,e);
-  if(Math.hypot(q.x-xy(drag.start).x,q.y-xy(drag.start).y)>7)drag.moved=true;
-  makePreview(svg,drag.start,q);
-}
-function endDrag(svg,e){
-  if(!drag.active||drag.pointerId!==e.pointerId)return;
-  let end=nearestPoint(svg,e,44);
-  let didMove=drag.moved;
-  let start=drag.start;
-  if(end!==null&&end!==start&&didMove){
-    clearDrag(svg);
-    addLine(start,end);
-    drag.suppressClick=true;
-    setTimeout(()=>{drag.suppressClick=false},0);
-    return;
-  }
-  clearDrag(svg);
-  if(!didMove){
-    pointClick(start);
-    drag.suppressClick=true;
-    setTimeout(()=>{drag.suppressClick=false},0);
-  }else{
-    state.selected=null;
-    renderArt();
-    drag.suppressClick=true;
-    setTimeout(()=>{drag.suppressClick=false},0);
-  }
-}
-function svgFor(work,{interactive=false,dots=true}={}){let svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox',`0 0 ${SIZE} ${SIZE}`);svg.classList.add('board-svg');svg.style.background=work.background||'#fff';
-  (work.lines||[]).forEach((l,idx)=>{let a=xy(l.from),b=xy(l.to),el=document.createElementNS(NS,'line');Object.entries({x1:a.x,y1:a.y,x2:b.x,y2:b.y,stroke:l.color,'stroke-width':l.width}).forEach(([k,v])=>el.setAttribute(k,v));el.classList.add('art-line');if(interactive)el.addEventListener('click',e=>{e.stopPropagation();if(state.tool==='erase'){commit();state.lines.splice(idx,1);renderArt()}});svg.append(el)});
-  if(dots)for(let i=0;i<GRID*GRID;i++){let q=xy(i),vis=document.createElementNS(NS,'circle');vis.setAttribute('cx',q.x);vis.setAttribute('cy',q.y);vis.setAttribute('r',state.selected===i&&interactive?10:6);vis.classList.add('dot','visible');if(state.selected===i&&interactive)vis.classList.add('selected');svg.append(vis);if(interactive){let hit=document.createElementNS(NS,'circle');hit.setAttribute('cx',q.x);hit.setAttribute('cy',q.y);hit.setAttribute('r',20);hit.classList.add('dot','hit');hit.dataset.point=i;hit.addEventListener('click',()=>pointClick(i));svg.append(hit)}}return svg}
-function pointClick(i){if(state.tool!=='draw')return;if(state.selected===null){state.selected=i;renderArt();return}if(state.selected===i){state.selected=null;renderArt();return}let next=line(state.selected,i,state.color,state.width);if(!state.lines.some(l=>key(l)===key(next))){commit();state.lines.push(next)}state.selected=null;renderArt()}
 function renderArt(){let host=$('#artBoard');host.replaceChildren(svgFor(state,{interactive:true,dots:state.showDots}));updateMatch()}
 function renderSample(){let host=$('#sampleBoard');host.replaceChildren(svgFor({...state.sample,background:'#fff'},{dots:true}));$('#sampleName').textContent=state.sample.name;updateMatch()}
 function updateMatch(){let n=state.lines.filter(l=>state.sample.lines.some(s=>key(s)===key(l))).length;$('#matchInfo').textContent=state.mode==='trace'?`お手本と同じ線　${n}本`:''}
