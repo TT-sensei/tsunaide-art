@@ -218,6 +218,32 @@ const samples=[{
     {from:54,to:34,color:'#3c82c4',width:6}
   ]
 }
+
+, {
+  id:'sample-ribbon-008',
+  name:'リボン',
+  level:'かんたん',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:20,to:80,color:'#d94e4e',width:6},
+    {from:29,to:89,color:'#d94e4e',width:6},
+    {from:20,to:43,color:'#d94e4e',width:6},
+    {from:80,to:63,color:'#d94e4e',width:6},
+    {from:43,to:63,color:'#d94e4e',width:6},
+    {from:43,to:46,color:'#d94e4e',width:6},
+    {from:46,to:66,color:'#d94e4e',width:6},
+    {from:46,to:29,color:'#d94e4e',width:6},
+    {from:66,to:89,color:'#d94e4e',width:6},
+    {from:63,to:66,color:'#d94e4e',width:6},
+    {from:82,to:83,color:'#d94e4e',width:6},
+    {from:83,to:64,color:'#d94e4e',width:6},
+    {from:64,to:82,color:'#d94e4e',width:6},
+    {from:87,to:86,color:'#d94e4e',width:6},
+    {from:86,to:65,color:'#d94e4e',width:6},
+    {from:87,to:65,color:'#d94e4e',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
