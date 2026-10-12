@@ -116,6 +116,28 @@ const samples=[{
     {from:78,to:79,color:'#3c82c4',width:6}
   ]
 }
+
+, {
+  id:'sample-sakana-004',
+  name:'さかな',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:31,to:42,color:'#3c82c4',width:6},
+    {from:42,to:51,color:'#3c82c4',width:6},
+    {from:31,to:13,color:'#3c82c4',width:6},
+    {from:13,to:17,color:'#3c82c4',width:6},
+    {from:51,to:73,color:'#3c82c4',width:6},
+    {from:73,to:77,color:'#3c82c4',width:6},
+    {from:77,to:29,color:'#3c82c4',width:6},
+    {from:17,to:69,color:'#3c82c4',width:6},
+    {from:69,to:29,color:'#3c82c4',width:6},
+    {from:35,to:36,color:'#3c82c4',width:6},
+    {from:36,to:56,color:'#3c82c4',width:6},
+    {from:55,to:56,color:'#3c82c4',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
