@@ -169,6 +169,30 @@ const samples=[{
     {from:36,to:58,color:'#222222',width:6}
   ]
 }
+
+, {
+  id:'sample-hako-006',
+  name:'はこ',
+  level:'かんたん',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:43,to:93,color:'#222222',width:6},
+    {from:93,to:96,color:'#222222',width:6},
+    {from:96,to:46,color:'#222222',width:6},
+    {from:43,to:46,color:'#222222',width:6},
+    {from:46,to:28,color:'#222222',width:6},
+    {from:43,to:25,color:'#222222',width:6},
+    {from:25,to:28,color:'#222222',width:6},
+    {from:78,to:28,color:'#222222',width:6},
+    {from:78,to:96,color:'#222222',width:6},
+    {from:70,to:90,color:'#222222',width:6},
+    {from:90,to:93,color:'#222222',width:6},
+    {from:70,to:73,color:'#222222',width:6},
+    {from:70,to:52,color:'#222222',width:6},
+    {from:52,to:53,color:'#222222',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
