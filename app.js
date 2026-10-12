@@ -138,6 +138,37 @@ const samples=[{
     {from:55,to:56,color:'#3c82c4',width:6}
   ]
 }
+
+, {
+  id:'sample-ouchi-005',
+  name:'おうち',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:90,to:94,color:'#222222',width:6},
+    {from:94,to:34,color:'#222222',width:6},
+    {from:34,to:30,color:'#222222',width:6},
+    {from:30,to:90,color:'#222222',width:6},
+    {from:30,to:2,color:'#222222',width:6},
+    {from:2,to:34,color:'#222222',width:6},
+    {from:54,to:58,color:'#222222',width:6},
+    {from:58,to:98,color:'#222222',width:6},
+    {from:94,to:98,color:'#222222',width:6},
+    {from:41,to:51,color:'#222222',width:6},
+    {from:52,to:51,color:'#222222',width:6},
+    {from:41,to:42,color:'#222222',width:6},
+    {from:42,to:43,color:'#222222',width:6},
+    {from:53,to:43,color:'#222222',width:6},
+    {from:52,to:53,color:'#222222',width:6},
+    {from:42,to:52,color:'#222222',width:6},
+    {from:75,to:95,color:'#222222',width:6},
+    {from:75,to:76,color:'#222222',width:6},
+    {from:76,to:96,color:'#222222',width:6},
+    {from:54,to:36,color:'#222222',width:6},
+    {from:36,to:58,color:'#222222',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
