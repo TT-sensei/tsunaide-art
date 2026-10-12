@@ -4,7 +4,46 @@ const NS='http://www.w3.org/2000/svg', GRID=10, PAD=45, SIZE=710, STEP=(SIZE-PAD
 const COLORS=['#222222','#d94e4e','#e38b35','#e0bd35','#4d9761','#3c82c4','#6657b8','#c45a91'];
 const line=(a,b,color='#222222',width=6)=>({from:a,to:b,color,width});
 const p=(r,c)=>r*GRID+c;
-const samples=[];
+const samples=[{
+  id:'sample-neko-001',
+  name:'ねこ',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:32,to:37,color:'#222222',width:6},
+    {from:32,to:41,color:'#222222',width:6},
+    {from:37,to:48,color:'#222222',width:6},
+    {from:41,to:71,color:'#222222',width:6},
+    {from:48,to:78,color:'#222222',width:6},
+    {from:71,to:82,color:'#222222',width:6},
+    {from:78,to:87,color:'#222222',width:6},
+    {from:87,to:82,color:'#222222',width:6},
+    {from:32,to:13,color:'#222222',width:6},
+    {from:13,to:34,color:'#222222',width:6},
+    {from:35,to:16,color:'#222222',width:6},
+    {from:16,to:37,color:'#222222',width:6},
+    {from:67,to:49,color:'#222222',width:6},
+    {from:67,to:69,color:'#222222',width:6},
+    {from:67,to:89,color:'#222222',width:6},
+    {from:62,to:40,color:'#222222',width:6},
+    {from:62,to:60,color:'#222222',width:6},
+    {from:62,to:80,color:'#222222',width:6},
+    {from:64,to:65,color:'#222222',width:6},
+    {from:65,to:74,color:'#222222',width:6},
+    {from:64,to:75,color:'#222222',width:6},
+    {from:43,to:53,color:'#222222',width:6},
+    {from:54,to:53,color:'#222222',width:6},
+    {from:43,to:44,color:'#222222',width:6},
+    {from:44,to:54,color:'#222222',width:6},
+    {from:43,to:54,color:'#222222',width:6},
+    {from:45,to:55,color:'#222222',width:6},
+    {from:55,to:56,color:'#222222',width:6},
+    {from:56,to:46,color:'#222222',width:6},
+    {from:45,to:46,color:'#222222',width:6},
+    {from:46,to:55,color:'#222222',width:6}
+  ]
+}];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
 function validSample(s){return !!s&&typeof s.name==='string'&&Array.isArray(s.lines)&&s.lines.length>0&&s.lines.every(l=>Number.isInteger(l.from)&&Number.isInteger(l.to)&&l.from>=0&&l.from<100&&l.to>=0&&l.to<100&&l.from!==l.to&&typeof l.color==='string'&&Number.isFinite(Number(l.width)))}
