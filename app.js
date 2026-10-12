@@ -272,6 +272,28 @@ const samples=[{
     {from:37,to:28,color:'#222222',width:6}
   ]
 }
+
+, {
+  id:'sample-chou-010',
+  name:'ちょう',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:34,to:84,color:'#4d9761',width:6},
+    {from:85,to:35,color:'#4d9761',width:6},
+    {from:34,to:35,color:'#4d9761',width:6},
+    {from:84,to:85,color:'#4d9761',width:6},
+    {from:35,to:16,color:'#4d9761',width:6},
+    {from:34,to:13,color:'#4d9761',width:6},
+    {from:74,to:91,color:'#e0bd35',width:6},
+    {from:44,to:21,color:'#e0bd35',width:6},
+    {from:91,to:21,color:'#e0bd35',width:6},
+    {from:75,to:98,color:'#e0bd35',width:6},
+    {from:98,to:28,color:'#e0bd35',width:6},
+    {from:28,to:45,color:'#e0bd35',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
