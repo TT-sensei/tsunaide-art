@@ -193,6 +193,31 @@ const samples=[{
     {from:52,to:53,color:'#222222',width:6}
   ]
 }
+
+, {
+  id:'sample-kuruma-007',
+  name:'くるま',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:71,to:51,color:'#222222',width:6},
+    {from:51,to:52,color:'#222222',width:6},
+    {from:52,to:34,color:'#222222',width:6},
+    {from:34,to:37,color:'#222222',width:6},
+    {from:37,to:59,color:'#222222',width:6},
+    {from:59,to:79,color:'#222222',width:6},
+    {from:79,to:71,color:'#222222',width:6},
+    {from:73,to:83,color:'#222222',width:6},
+    {from:84,to:74,color:'#222222',width:6},
+    {from:83,to:84,color:'#222222',width:6},
+    {from:77,to:87,color:'#222222',width:6},
+    {from:87,to:88,color:'#222222',width:6},
+    {from:78,to:88,color:'#222222',width:6},
+    {from:52,to:54,color:'#3c82c4',width:6},
+    {from:54,to:34,color:'#3c82c4',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
