@@ -43,7 +43,38 @@ const samples=[{
     {from:45,to:46,color:'#222222',width:6},
     {from:46,to:55,color:'#222222',width:6}
   ]
-}];
+}, {
+  id:'sample-hana-002',
+  name:'花',
+  level:'かんたん',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:34,to:44,color:'#e0bd35',width:6},
+    {from:44,to:45,color:'#e0bd35',width:6},
+    {from:35,to:45,color:'#e0bd35',width:6},
+    {from:34,to:35,color:'#e0bd35',width:6},
+    {from:34,to:13,color:'#c45a91',width:6},
+    {from:13,to:16,color:'#c45a91',width:6},
+    {from:16,to:35,color:'#c45a91',width:6},
+    {from:35,to:27,color:'#c45a91',width:6},
+    {from:27,to:57,color:'#c45a91',width:6},
+    {from:45,to:57,color:'#c45a91',width:6},
+    {from:34,to:22,color:'#c45a91',width:6},
+    {from:22,to:52,color:'#c45a91',width:6},
+    {from:52,to:44,color:'#c45a91',width:6},
+    {from:44,to:63,color:'#c45a91',width:6},
+    {from:63,to:66,color:'#c45a91',width:6},
+    {from:66,to:45,color:'#c45a91',width:6},
+    {from:64,to:94,color:'#4d9761',width:6},
+    {from:94,to:95,color:'#4d9761',width:6},
+    {from:95,to:65,color:'#4d9761',width:6},
+    {from:85,to:76,color:'#4d9761',width:6},
+    {from:76,to:86,color:'#4d9761',width:6},
+    {from:85,to:86,color:'#4d9761',width:6}
+  ]
+}
+];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
 function validSample(s){return !!s&&typeof s.name==='string'&&Array.isArray(s.lines)&&s.lines.length>0&&s.lines.every(l=>Number.isInteger(l.from)&&Number.isInteger(l.to)&&l.from>=0&&l.from<100&&l.to>=0&&l.to<100&&l.from!==l.to&&typeof l.color==='string'&&Number.isFinite(Number(l.width)))}
