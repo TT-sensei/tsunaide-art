@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="theme-color" content="#f7f3ea">
   <title>つないでアート</title>
-  <link rel="stylesheet" href="style.css?v=20261012b">
+  <link rel="stylesheet" href="style.css?v=20261012c">
 </head>
 <body>
 <header class="app-header">
@@ -19,12 +19,11 @@
   <div class="header-actions"><button id="teacherBtn" class="button secondary">先生用</button><button id="galleryBtn" class="button secondary">作品を見る</button></div>
 </header>
 <nav class="mode-tabs" aria-label="制作モード">
-  <button data-mode="trace" class="tab active">お手本</button>
-  <button data-mode="arrange" class="tab">アレンジ</button>
-  <button data-mode="free" class="tab">じゆうにつくる</button>
+  <button data-mode="trace" class="tab active">お手本を再現する</button>
+  <button data-mode="free" class="tab">線をつないで自由につくる</button>
 </nav>
 <main>
-  <section id="message" class="message">左のお手本を見ながら、点をつないでみよう</section>
+  <section id="message" class="message">お手本を見ながら、点と点を線でつないで再現しよう。自由にアレンジしてもOK。</section>
   <div id="workspace" class="workspace">
     <section id="samplePanel" class="panel sample-panel">
       <div class="panel-title"><h2>お手本</h2><button id="chooseSampleBtn" class="button small">お手本をえらぶ</button></div>
@@ -33,7 +32,7 @@
       <div id="matchInfo" class="match-info" aria-live="polite"></div>
     </section>
     <section class="panel creation-panel">
-      <div class="panel-title"><h2>わたしの作品</h2><button id="previewBtn" class="button small secondary">点をかくす</button></div>
+      <div class="panel-title"><h2>作品をつくる</h2><button id="previewBtn" class="button small secondary">点をかくす</button></div>
       <div id="artBoard" class="board-wrap"></div>
     </section>
   </div>
@@ -75,5 +74,5 @@
 <dialog id="galleryDialog"><div class="dialog-head"><h2>保存した作品</h2><button class="close" data-close="gallery" aria-label="閉じる">×</button></div><div id="galleryList" class="card-grid"></div><p id="emptyGallery" class="empty">まだ作品はありません。</p></dialog>
 <dialog id="previewDialog"><div class="dialog-head"><h2 id="previewTitle">作品</h2><button class="close" data-close="preview" aria-label="閉じる">×</button></div><div id="previewBoard" class="preview-board"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20261012b"></script>
+<script src="app.js?v=20261012c"></script>
 </body></html>
