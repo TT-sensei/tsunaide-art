@@ -4,64 +4,12 @@ const NS='http://www.w3.org/2000/svg', GRID=10, PAD=45, SIZE=710, STEP=(SIZE-PAD
 const COLORS=['#222222','#d94e4e','#e38b35','#e0bd35','#4d9761','#3c82c4','#6657b8','#c45a91'];
 const line=(a,b,color='#222222',width=6)=>({from:a,to:b,color,width});
 const p=(r,c)=>r*GRID+c;
-const samples=[
- // オリジナル見本：輪郭だけでなく、内側の模様や背景のアクセントも組み合わせる
- {id:'cat',name:'ねこの顔',level:'かんたん',lines:[
-  line(p(6,1),p(2,1),'#d98b52',7),line(p(2,1),p(0,3),'#d98b52',7),line(p(0,3),p(3,4),'#d98b52',7),line(p(3,4),p(2,6),'#d98b52',7),line(p(2,6),p(3,8),'#d98b52',7),line(p(3,8),p(6,8),'#d98b52',7),line(p(6,8),p(8,6),'#d98b52',7),line(p(8,6),p(7,4),'#d98b52',7),line(p(7,4),p(9,3),'#d98b52',7),line(p(9,3),p(7,1),'#d98b52',7),line(p(7,1),p(6,1),'#d98b52',7),
-  line(p(3,4),p(4,3),'#d98b52',5),line(p(4,3),p(5,4),'#d98b52',5),line(p(5,4),p(6,3),'#d98b52',5),line(p(6,3),p(7,4),'#d98b52',5),
-  line(p(3,5),p(4,5),'#222222',5),line(p(6,5),p(7,5),'#222222',5),line(p(4,6),p(5,6),'#d94e4e',5),line(p(5,6),p(6,6),'#d94e4e',5),line(p(5,6),p(5,7),'#d94e4e',4),
-  line(p(3,6),p(1,5),'#777777',3),line(p(3,7),p(1,7),'#777777',3),line(p(7,6),p(9,5),'#777777',3),line(p(7,7),p(9,7),'#777777',3)
- ]},
- {id:'balloon',name:'そらの気球',level:'かんたん',lines:[
-  line(p(4,2),p(2,3),'#d94e4e',7),line(p(2,3),p(1,5),'#d94e4e',7),line(p(1,5),p(2,7),'#d94e4e',7),line(p(2,7),p(4,8),'#d94e4e',7),line(p(4,8),p(6,7),'#d94e4e',7),line(p(6,7),p(7,5),'#d94e4e',7),line(p(7,5),p(6,3),'#d94e4e',7),line(p(6,3),p(4,2),'#d94e4e',7),
-  line(p(2,3),p(4,4),'#e0bd35',5),line(p(4,4),p(6,3),'#e0bd35',5),line(p(1,5),p(4,5),'#3c82c4',5),line(p(4,5),p(7,5),'#3c82c4',5),line(p(2,7),p(4,6),'#4d9761',5),line(p(4,6),p(6,7),'#4d9761',5),
-  line(p(3,7),p(4,8),'#8b5a34',3),line(p(5,7),p(4,8),'#8b5a34',3),line(p(3,8),p(3,9),'#8b5a34',5),line(p(3,9),p(5,9),'#8b5a34',5),line(p(5,9),p(5,8),'#8b5a34',5),
-  line(p(0,0),p(0,2),'#3c82c4',3),line(p(0,2),p(1,1),'#3c82c4',3),line(p(8,7),p(8,9),'#3c82c4',3),line(p(8,9),p(9,8),'#3c82c4',3)
- ]},
- {id:'sailboat',name:'なみのヨット',level:'かんたん',lines:[
-  line(p(1,4),p(6,4),'#8b5a34',5),line(p(1,4),p(5,7),'#8b5a34',5),line(p(5,7),p(8,4),'#8b5a34',5),line(p(8,4),p(1,4),'#8b5a34',5),line(p(5,1),p(5,6),'#222222',5),
-  line(p(4,2),p(1,4),'#d94e4e',6),line(p(1,4),p(4,4),'#d94e4e',6),line(p(4,4),p(4,2),'#d94e4e',6),line(p(6,2),p(6,4),'#3c82c4',6),line(p(6,2),p(8,4),'#3c82c4',6),line(p(8,4),p(6,4),'#3c82c4',6),
-  line(p(0,6),p(2,5),'#3c82c4',4),line(p(2,5),p(4,6),'#3c82c4',4),line(p(4,6),p(6,5),'#3c82c4',4),line(p(6,5),p(8,6),'#3c82c4',4),line(p(8,6),p(9,5),'#3c82c4',4),line(p(0,8),p(2,7),'#3c82c4',4),line(p(2,7),p(4,8),'#3c82c4',4),line(p(4,8),p(6,7),'#3c82c4',4),line(p(6,7),p(8,8),'#3c82c4',4),line(p(8,8),p(9,7),'#3c82c4',4)
- ]},
- {id:'fox',name:'きつね',level:'ふつう',lines:[
-  line(p(6,1),p(2,1),'#e38b35',7),line(p(2,1),p(0,3),'#e38b35',7),line(p(0,3),p(3,4),'#e38b35',7),line(p(3,4),p(2,6),'#e38b35',7),line(p(2,6),p(4,8),'#e38b35',7),line(p(4,8),p(7,7),'#e38b35',7),line(p(7,7),p(8,5),'#e38b35',7),line(p(8,5),p(7,3),'#e38b35',7),line(p(7,3),p(9,2),'#e38b35',7),line(p(9,2),p(7,1),'#e38b35',7),line(p(7,1),p(6,1),'#e38b35',7),
-  line(p(3,4),p(5,5),'#f3d7b2',7),line(p(5,5),p(7,3),'#f3d7b2',7),line(p(3,5),p(4,5),'#222222',5),line(p(6,4),p(7,4),'#222222',5),line(p(4,6),p(5,6),'#222222',4),line(p(5,6),p(6,6),'#222222',4),line(p(4,7),p(5,8),'#f3d7b2',5),line(p(5,8),p(6,7),'#f3d7b2',5),line(p(7,7),p(8,8),'#e38b35',6),line(p(8,8),p(9,7),'#e38b35',6)
- ]},
- {id:'owl',name:'もりのふくろう',level:'ふつう',lines:[
-  line(p(7,2),p(5,1),'#8b5a34',6),line(p(5,1),p(3,2),'#8b5a34',6),line(p(3,2),p(1,2),'#8b5a34',6),line(p(1,2),p(0,4),'#8b5a34',6),line(p(0,4),p(2,7),'#8b5a34',6),line(p(2,7),p(5,8),'#8b5a34',6),line(p(5,8),p(8,7),'#8b5a34',6),line(p(8,7),p(9,4),'#8b5a34',6),line(p(9,4),p(7,2),'#8b5a34',6),
-  line(p(2,4),p(3,3),'#e0bd35',5),line(p(3,3),p(4,4),'#e0bd35',5),line(p(4,4),p(3,5),'#e0bd35',5),line(p(3,5),p(2,4),'#e0bd35',5),line(p(5,4),p(6,3),'#e0bd35',5),line(p(6,3),p(7,4),'#e0bd35',5),line(p(7,4),p(6,5),'#e0bd35',5),line(p(6,5),p(5,4),'#e0bd35',5),
-  line(p(4,5),p(5,6),'#d94e4e',4),line(p(5,6),p(6,5),'#d94e4e',4),line(p(2,7),p(2,9),'#8b5a34',5),line(p(2,9),p(4,8),'#8b5a34',5),line(p(6,8),p(8,9),'#8b5a34',5),line(p(8,9),p(8,7),'#8b5a34',5)
- ]},
- {id:'butterfly',name:'はなばたけのちょう',level:'ふつう',lines:[
-  line(p(4,4),p(4,6),'#222222',5),line(p(4,6),p(5,7),'#222222',5),line(p(5,7),p(5,3),'#222222',5),line(p(5,3),p(4,4),'#222222',5),
-  line(p(4,4),p(2,1),'#c45a91',7),line(p(2,1),p(0,2),'#c45a91',7),line(p(0,2),p(1,5),'#c45a91',7),line(p(1,5),p(4,5),'#c45a91',7),line(p(5,4),p(7,1),'#6657b8',7),line(p(7,1),p(9,2),'#6657b8',7),line(p(9,2),p(8,5),'#6657b8',7),line(p(8,5),p(5,5),'#6657b8',7),line(p(4,5),p(2,6),'#c45a91',7),line(p(2,6),p(3,8),'#c45a91',7),line(p(3,8),p(5,6),'#c45a91',7),line(p(5,5),p(7,6),'#6657b8',7),line(p(7,6),p(6,8),'#6657b8',7),line(p(6,8),p(5,6),'#6657b8',7),
-  line(p(2,2),p(3,4),'#e0bd35',4),line(p(3,4),p(2,4),'#e0bd35',4),line(p(7,2),p(6,4),'#e0bd35',4),line(p(6,4),p(7,4),'#e0bd35',4),line(p(1,8),p(0,7),'#4d9761',4),line(p(0,7),p(0,9),'#4d9761',4),line(p(0,9),p(1,8),'#4d9761',4),line(p(8,8),p(9,7),'#d94e4e',4),line(p(9,7),p(9,9),'#d94e4e',4),line(p(9,9),p(8,8),'#d94e4e',4)
- ]},
- {id:'rocket',name:'ほしぞらロケット',level:'ふつう',lines:[
-  line(p(4,1),p(2,3),'#3c82c4',7),line(p(2,3),p(2,6),'#3c82c4',7),line(p(2,6),p(4,8),'#3c82c4',7),line(p(4,8),p(7,6),'#3c82c4',7),line(p(7,6),p(7,3),'#3c82c4',7),line(p(7,3),p(4,1),'#3c82c4',7),
-  line(p(4,2),p(4,4),'#e38b35',6),line(p(4,4),p(5,5),'#e38b35',6),line(p(5,5),p(5,3),'#e38b35',6),line(p(5,3),p(4,2),'#e38b35',6),line(p(2,5),p(0,4),'#d94e4e',7),line(p(0,4),p(0,6),'#d94e4e',7),line(p(0,6),p(2,6),'#d94e4e',7),line(p(7,5),p(9,4),'#d94e4e',7),line(p(9,4),p(9,6),'#d94e4e',7),line(p(9,6),p(7,6),'#d94e4e',7),line(p(3,7),p(4,9),'#e38b35',5),line(p(4,9),p(5,7),'#e0bd35',5),line(p(5,7),p(6,9),'#d94e4e',5),
-  line(p(0,0),p(1,1),'#e0bd35',4),line(p(1,1),p(0,2),'#e0bd35',4),line(p(0,2),p(0,0),'#e0bd35',4),line(p(8,0),p(9,1),'#e0bd35',4),line(p(9,1),p(8,2),'#e0bd35',4),line(p(8,2),p(8,0),'#e0bd35',4)
- ]},
- {id:'garden',name:'はるの花',level:'ふつう',lines:[
-  line(p(4,5),p(8,5),'#4d9761',6),line(p(6,5),p(5,3),'#4d9761',5),line(p(5,3),p(4,4),'#4d9761',5),line(p(4,4),p(6,5),'#4d9761',5),line(p(6,5),p(7,3),'#4d9761',5),line(p(7,3),p(8,4),'#4d9761',5),line(p(8,4),p(6,5),'#4d9761',5),
-  line(p(4,2),p(3,1),'#d94e4e',6),line(p(3,1),p(2,2),'#d94e4e',6),line(p(2,2),p(3,3),'#d94e4e',6),line(p(3,3),p(4,2),'#d94e4e',6),line(p(3,3),p(2,4),'#d94e4e',6),line(p(2,4),p(4,4),'#d94e4e',6),line(p(4,4),p(4,2),'#d94e4e',6),line(p(4,2),p(5,1),'#d94e4e',6),line(p(5,1),p(6,2),'#d94e4e',6),line(p(6,2),p(5,3),'#d94e4e',6),line(p(5,3),p(4,2),'#d94e4e',6),
-  line(p(3,3),p(3,2),'#e0bd35',4),line(p(3,2),p(4,3),'#e0bd35',4),line(p(4,3),p(3,3),'#e0bd35',4),line(p(1,6),p(0,5),'#e38b35',5),line(p(0,5),p(0,7),'#e38b35',5),line(p(0,7),p(1,6),'#e38b35',5),line(p(7,7),p(6,6),'#6657b8',5),line(p(6,6),p(6,8),'#6657b8',5),line(p(6,8),p(7,7),'#6657b8',5)
- ]},
- {id:'mountains',name:'夕やけの山',level:'ちょっとむずかしい',lines:[
-  line(p(7,0),p(3,3),'#6657b8',6),line(p(3,3),p(5,4),'#6657b8',6),line(p(5,4),p(1,7),'#6657b8',6),line(p(1,7),p(7,9),'#6657b8',6),line(p(7,0),p(9,2),'#3c82c4',6),line(p(9,2),p(6,4),'#3c82c4',6),line(p(6,4),p(8,5),'#3c82c4',6),line(p(8,5),p(7,9),'#3c82c4',6),
-  line(p(3,3),p(4,4),'#f3d7b2',4),line(p(4,4),p(5,4),'#f3d7b2',4),line(p(0,0),p(0,2),'#e0bd35',5),line(p(0,2),p(2,2),'#e0bd35',5),line(p(2,2),p(2,0),'#e0bd35',5),line(p(2,0),p(0,0),'#e0bd35',5),line(p(7,6),p(9,6),'#d94e4e',4),line(p(9,6),p(8,8),'#d94e4e',4),line(p(8,8),p(7,6),'#d94e4e',4),line(p(0,8),p(1,7),'#e38b35',4),line(p(1,7),p(2,8),'#e38b35',4),line(p(2,8),p(0,8),'#e38b35',4)
- ]},
- {id:'pattern',name:'ひかりのもよう',level:'ちょっとむずかしい',lines:[
-  ...[[0,4],[2,7],[4,9],[7,7],[9,4],[7,1],[4,0],[2,1]].map(([r,c],i)=>line(p(4,4),p(r,c),['#d94e4e','#e38b35','#e0bd35','#4d9761','#3c82c4','#6657b8','#c45a91','#d94e4e'][i],4)),
-  ...[[0,4],[2,7],[4,9],[7,7],[9,4],[7,1],[4,0],[2,1]].map(([r,c],i)=>{const next=[[2,7],[4,9],[7,7],[9,4],[7,1],[4,0],[2,1],[0,4]][i];return line(p(r,c),p(next[0],next[1]),'#3c82c4',3)}),
-  line(p(2,2),p(2,6),'#e38b35',4),line(p(2,6),p(6,6),'#e38b35',4),line(p(6,6),p(6,2),'#e38b35',4),line(p(6,2),p(2,2),'#e38b35',4),line(p(3,3),p(3,5),'#d94e4e',3),line(p(3,5),p(5,5),'#d94e4e',3),line(p(5,5),p(5,3),'#d94e4e',3),line(p(5,3),p(3,3),'#d94e4e',3)
- ]}
-];
+const samples=[];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
 function validSample(s){return !!s&&typeof s.name==='string'&&Array.isArray(s.lines)&&s.lines.length>0&&s.lines.every(l=>Number.isInteger(l.from)&&Number.isInteger(l.to)&&l.from>=0&&l.from<100&&l.to>=0&&l.to<100&&l.from!==l.to&&typeof l.color==='string'&&Number.isFinite(Number(l.width)))}
 function allSamples(){return [...samples,...readCustomSamples()]}
-let state={mode:'trace',lines:[],background:'#ffffff',color:COLORS[0],width:6,tool:'draw',selected:null,showDots:true,undo:[],redo:[],sample:samples[0]};
+let state={mode:'trace',lines:[],background:'#ffffff',color:COLORS[0],width:6,tool:'draw',selected:null,showDots:true,undo:[],redo:[],sample:null};
 let drag={active:false,start:null,moved:false,pointerId:null,preview:null,suppressClick:false};
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function xy(i){return {x:PAD+(i%GRID)*STEP,y:PAD+Math.floor(i/GRID)*STEP}}
@@ -224,13 +172,13 @@ function pointClick(i){
   addLine(state.selected,i);
 }
 function renderArt(){let host=$('#artBoard');host.replaceChildren(svgFor(state,{interactive:true,dots:state.showDots}));updateMatch()}
-function renderSample(){let host=$('#sampleBoard');host.replaceChildren(svgFor({...state.sample,background:'#fff'},{dots:true}));$('#sampleName').textContent=state.sample.name;updateMatch()}
-function updateMatch(){let n=state.lines.filter(l=>state.sample.lines.some(s=>key(s)===key(l))).length;$('#matchInfo').textContent=state.mode==='trace'?`お手本と同じ線　${n} / ${state.sample.lines.length}本`:''}
+function renderSample(){let host=$('#sampleBoard');host.replaceChildren();if(state.sample&&validSample(state.sample)){host.append(svgFor({...state.sample,background:'#fff'},{dots:true}));$('#sampleName').textContent=state.sample.name}else{let note=document.createElement('p');note.className='sample-empty';note.textContent='お手本はまだありません。あとから追加できます。';host.append(note);$('#sampleName').textContent='お手本なし'}updateMatch()}
+function updateMatch(){if(!state.sample||!Array.isArray(state.sample.lines)||!state.sample.lines.length){$('#matchInfo').textContent='';return}let n=state.lines.filter(l=>state.sample.lines.some(s=>key(s)===key(l))).length;$('#matchInfo').textContent=state.mode==='trace'?`お手本と同じ線　${n} / ${state.sample.lines.length}本`:''}
 function setMode(mode){if(mode==='arrange')mode='trace';state.mode=mode;$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('#workspace').classList.toggle('free',mode==='free');$('#message').classList.toggle('free',mode==='free');$('#message').textContent=mode==='trace'?'お手本を見ながら、点と点を線でつないで再現しよう。自由にアレンジしてもOK。':'点をつないで、自分だけの作品を自由につくろう。';renderArt();updateMatch()}
 function toast(t){let el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),1700)}
 function cardSvg(work,dots=false){return svgFor(work,{dots})}
-function populateSamples(){let host=$('#sampleList');host.replaceChildren();allSamples().forEach(s=>{let c=document.createElement('button');c.className='card';c.type='button';c.append(cardSvg(s,false));c.insertAdjacentHTML('beforeend',`<strong></strong><small></small>`);c.querySelector('strong').textContent=s.name;c.querySelector('small').textContent=s.level||'ふつう';c.onclick=()=>{state.sample=s;renderSample();$('#sampleDialog').close();toast(`${s.name}をえらびました`)};host.append(c)})}
-function renderTeacherSamples(){let host=$('#teacherSamplesList');host.replaceChildren();let custom=readCustomSamples();if(!custom.length){host.textContent='まだ登録したお手本はありません。';return}custom.forEach(s=>{let row=document.createElement('div');row.className='teacher-sample-row';let label=document.createElement('span');label.textContent=s.name+'（'+(s.level||'ふつう')+'）';let del=document.createElement('button');del.type='button';del.className='button secondary small';del.textContent='削除';del.onclick=()=>{if(!confirm('「'+s.name+'」を登録したお手本から削除しますか？'))return;let next=readCustomSamples().filter(x=>x.id!==s.id);localStorage.setItem(CUSTOM_KEY,JSON.stringify(next));if(state.sample.id===s.id){state.sample=samples[0];renderSample()}populateSamples();renderTeacherSamples();toast('お手本を削除しました')};row.append(label,del);host.append(row)})}
+function populateSamples(){let host=$('#sampleList');host.replaceChildren();let available=allSamples();if(!available.length){let note=document.createElement('p');note.className='empty';note.textContent='お手本はまだ登録されていません。あとから作品を登録するか、データを読み込めます。';host.append(note);return}available.forEach(s=>{let c=document.createElement('button');c.className='card';c.type='button';c.append(cardSvg(s,false));c.insertAdjacentHTML('beforeend',`<strong></strong><small></small>`);c.querySelector('strong').textContent=s.name;c.querySelector('small').textContent=s.level||'ふつう';c.onclick=()=>{state.sample=s;renderSample();$('#sampleDialog').close();toast(`${s.name}をえらびました`)};host.append(c)})}
+function renderTeacherSamples(){let host=$('#teacherSamplesList');host.replaceChildren();let custom=readCustomSamples();if(!custom.length){host.textContent='まだ登録したお手本はありません。';return}custom.forEach(s=>{let row=document.createElement('div');row.className='teacher-sample-row';let label=document.createElement('span');label.textContent=s.name+'（'+(s.level||'ふつう')+'）';let del=document.createElement('button');del.type='button';del.className='button secondary small';del.textContent='削除';del.onclick=()=>{if(!confirm('「'+s.name+'」を登録したお手本から削除しますか？'))return;let next=readCustomSamples().filter(x=>x.id!==s.id);localStorage.setItem(CUSTOM_KEY,JSON.stringify(next));if(state.sample&&state.sample.id===s.id){state.sample=null;renderSample()}populateSamples();renderTeacherSamples();toast('お手本を削除しました')};row.append(label,del);host.append(row)})}
 function registerCurrentSample(){let name=$('#teacherName').value.trim();if(!name){toast('お手本の名前を入力してください');$('#teacherName').focus();return}if(!state.lines.length){toast('先に点をつないで作品を作ってください');return}let custom=readCustomSamples();if(custom.length>=100){toast('登録できるお手本は100個までです');return}let item={id:'custom-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),name,level:$('#teacherLevel').value,gridSize:GRID,background:state.background,lines:state.lines.map(l=>({from:l.from,to:l.to,color:l.color,width:l.width})),custom:true};custom.push(item);localStorage.setItem(CUSTOM_KEY,JSON.stringify(custom));state.sample=item;renderSample();populateSamples();renderTeacherSamples();toast('お手本に登録しました')}
 function exportSamples(){let custom=readCustomSamples();if(!custom.length){toast('書き出すお手本がありません');return}let payload={format:'tsunaide-art-samples',version:1,samples:custom.map(({id,name,level,gridSize,background,lines})=>({id,name,level,gridSize,background,lines}))};let url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));let a=document.createElement('a');a.href=url;a.download='つないでアート_お手本.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('お手本データを書き出しました')}
 function importSamplesFile(file){if(!file)return;let reader=new FileReader();reader.onload=()=>{try{let parsed=JSON.parse(reader.result);let incoming=Array.isArray(parsed)?parsed:parsed.samples;if(!Array.isArray(incoming))throw new Error('samples');let accepted=incoming.filter(validSample).map((s,i)=>({...s,id:'custom-'+Date.now()+'-'+i+'-'+Math.random().toString(36).slice(2,6),level:['かんたん','ふつう','ちょっとむずかしい'].includes(s.level)?s.level:'ふつう',custom:true}));if(!accepted.length)throw new Error('empty');let existing=readCustomSamples();let merged=[...existing,...accepted].slice(0,100);localStorage.setItem(CUSTOM_KEY,JSON.stringify(merged));populateSamples();renderTeacherSamples();toast(accepted.length+'個のお手本を読み込みました')}catch(_){toast('このファイルは読み込めません。お手本データのJSONか確認してください')}$('#importSamplesFile').value=''};reader.onerror=()=>toast('ファイルを読み込めませんでした');reader.readAsText(file)}
