@@ -39,3 +39,4 @@ dialog{border:0;border-radius:18px;padding:18px;width:min(900px,94vw);max-height
  .tool-group{flex:0 0 auto;flex-wrap:nowrap;gap:4px;padding:0 7px 0 0}.tool-group:last-child{padding-right:7px}.tool,.width-btn{height:55px;min-width:47px;padding:3px 4px;border-radius:9px}.tool span,.width-btn span{font-size:9px}.colors{flex-wrap:nowrap;max-width:none}.color-btn{width:27px;height:27px;flex-basis:27px}.width-btn{min-width:52px}.bg-label{font-size:10px}.bg-label input{width:34px;height:28px}.toast{bottom:82px}
  dialog{padding:12px;max-width:96vw}.dialog-head h2{font-size:17px}.card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.teacher-help{font-size:13px}
 }
+.sample-empty{display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-height:120px;margin:0;padding:18px;color:#63706d;text-align:center;font-size:14px;line-height:1.6;background:#fff;border:1px dashed #d7dedb;border-radius:9px}
