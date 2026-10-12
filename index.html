@@ -16,7 +16,7 @@
     alt=""
     aria-hidden="true"
     decoding="async">
-  <button id="galleryBtn" class="button secondary">作品を見る</button>
+  <div class="header-actions"><button id="teacherBtn" class="button secondary">先生用</button><button id="galleryBtn" class="button secondary">作品を見る</button></div>
 </header>
 <nav class="mode-tabs" aria-label="制作モード">
   <button data-mode="trace" class="tab active">お手本</button>
@@ -59,6 +59,18 @@
   </div>
 </footer>
 
+<dialog id="teacherDialog">
+  <div class="dialog-head"><h2>先生用｜お手本をつくる</h2><button class="close" data-close="teacher" aria-label="閉じる">×</button></div>
+  <p class="teacher-help">右の制作画面で点をつないで作品を作り、名前をつけてお手本として登録できます。登録したお手本は、この端末のブラウザに保存されます。</p>
+  <label class="teacher-label" for="teacherName">お手本の名前</label>
+  <input id="teacherName" class="teacher-input" maxlength="40" placeholder="例：くるま、春の花">
+  <label class="teacher-label" for="teacherLevel">むずかしさ</label>
+  <select id="teacherLevel" class="teacher-input"><option>かんたん</option><option selected>ふつう</option><option>ちょっとむずかしい</option></select>
+  <div class="teacher-actions"><button id="registerSampleBtn" class="button">今の作品をお手本に登録</button><button id="exportSamplesBtn" class="button secondary">お手本を書き出す</button></div>
+  <div class="teacher-actions"><label class="button secondary file-button" for="importSamplesFile">お手本データを読み込む</label><input id="importSamplesFile" type="file" accept=".json,application/json" hidden></div>
+  <p class="teacher-help">別の端末へ移すときは「書き出す」で保存し、移動先で「読み込む」を使います。読み込んだデータは、登録済みのお手本に追加されます。</p>
+  <h3 class="teacher-subhead">登録したお手本</h3><div id="teacherSamplesList" class="teacher-samples-list"></div>
+</dialog>
 <dialog id="sampleDialog"><form method="dialog"><div class="dialog-head"><h2>お手本をえらぶ</h2><button class="close" aria-label="閉じる">×</button></div><div id="sampleList" class="card-grid"></div></form></dialog>
 <dialog id="galleryDialog"><div class="dialog-head"><h2>保存した作品</h2><button class="close" data-close="gallery" aria-label="閉じる">×</button></div><div id="galleryList" class="card-grid"></div><p id="emptyGallery" class="empty">まだ作品はありません。</p></dialog>
 <dialog id="previewDialog"><div class="dialog-head"><h2 id="previewTitle">作品</h2><button class="close" data-close="preview" aria-label="閉じる">×</button></div><div id="previewBoard" class="preview-board"></div></dialog>
