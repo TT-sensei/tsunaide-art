@@ -25,12 +25,12 @@ const samples=[
  ]},
  {id:'fox',name:'きつね',level:'ふつう',lines:[
   line(p(6,1),p(2,1),'#e38b35',7),line(p(2,1),p(0,3),'#e38b35',7),line(p(0,3),p(3,4),'#e38b35',7),line(p(3,4),p(2,6),'#e38b35',7),line(p(2,6),p(4,8),'#e38b35',7),line(p(4,8),p(7,7),'#e38b35',7),line(p(7,7),p(8,5),'#e38b35',7),line(p(8,5),p(7,3),'#e38b35',7),line(p(7,3),p(9,2),'#e38b35',7),line(p(9,2),p(7,1),'#e38b35',7),line(p(7,1),p(6,1),'#e38b35',7),
-  line(p(3,4),p(5,5),'#ffffff',7),line(p(5,5),p(7,3),'#ffffff',7),line(p(3,5),p(4,5),'#222222',5),line(p(6,4),p(7,4),'#222222',5),line(p(4,6),p(5,6),'#222222',4),line(p(5,6),p(6,6),'#222222',4),line(p(4,7),p(5,8),'#ffffff',5),line(p(5,8),p(6,7),'#ffffff',5),line(p(7,7),p(8,8),'#e38b35',6),line(p(8,8),p(9,7),'#e38b35',6)
+  line(p(3,4),p(5,5),'#f3d7b2',7),line(p(5,5),p(7,3),'#f3d7b2',7),line(p(3,5),p(4,5),'#222222',5),line(p(6,4),p(7,4),'#222222',5),line(p(4,6),p(5,6),'#222222',4),line(p(5,6),p(6,6),'#222222',4),line(p(4,7),p(5,8),'#f3d7b2',5),line(p(5,8),p(6,7),'#f3d7b2',5),line(p(7,7),p(8,8),'#e38b35',6),line(p(8,8),p(9,7),'#e38b35',6)
  ]},
  {id:'owl',name:'もりのふくろう',level:'ふつう',lines:[
   line(p(7,2),p(5,1),'#8b5a34',6),line(p(5,1),p(3,2),'#8b5a34',6),line(p(3,2),p(1,2),'#8b5a34',6),line(p(1,2),p(0,4),'#8b5a34',6),line(p(0,4),p(2,7),'#8b5a34',6),line(p(2,7),p(5,8),'#8b5a34',6),line(p(5,8),p(8,7),'#8b5a34',6),line(p(8,7),p(9,4),'#8b5a34',6),line(p(9,4),p(7,2),'#8b5a34',6),
   line(p(2,4),p(3,3),'#e0bd35',5),line(p(3,3),p(4,4),'#e0bd35',5),line(p(4,4),p(3,5),'#e0bd35',5),line(p(3,5),p(2,4),'#e0bd35',5),line(p(5,4),p(6,3),'#e0bd35',5),line(p(6,3),p(7,4),'#e0bd35',5),line(p(7,4),p(6,5),'#e0bd35',5),line(p(6,5),p(5,4),'#e0bd35',5),
-  line(p(3,4),p(3,4),'#222222',3),line(p(6,4),p(6,4),'#222222',3),line(p(4,5),p(5,6),'#d94e4e',4),line(p(5,6),p(6,5),'#d94e4e',4),line(p(2,7),p(2,9),'#8b5a34',5),line(p(2,9),p(4,8),'#8b5a34',5),line(p(6,8),p(8,9),'#8b5a34',5),line(p(8,9),p(8,7),'#8b5a34',5)
+  line(p(4,5),p(5,6),'#d94e4e',4),line(p(5,6),p(6,5),'#d94e4e',4),line(p(2,7),p(2,9),'#8b5a34',5),line(p(2,9),p(4,8),'#8b5a34',5),line(p(6,8),p(8,9),'#8b5a34',5),line(p(8,9),p(8,7),'#8b5a34',5)
  ]},
  {id:'butterfly',name:'はなばたけのちょう',level:'ふつう',lines:[
   line(p(4,4),p(4,6),'#222222',5),line(p(4,6),p(5,7),'#222222',5),line(p(5,7),p(5,3),'#222222',5),line(p(5,3),p(4,4),'#222222',5),
@@ -49,7 +49,7 @@ const samples=[
  ]},
  {id:'mountains',name:'夕やけの山',level:'ちょっとむずかしい',lines:[
   line(p(7,0),p(3,3),'#6657b8',6),line(p(3,3),p(5,4),'#6657b8',6),line(p(5,4),p(1,7),'#6657b8',6),line(p(1,7),p(7,9),'#6657b8',6),line(p(7,0),p(9,2),'#3c82c4',6),line(p(9,2),p(6,4),'#3c82c4',6),line(p(6,4),p(8,5),'#3c82c4',6),line(p(8,5),p(7,9),'#3c82c4',6),
-  line(p(3,3),p(4,4),'#ffffff',4),line(p(4,4),p(5,4),'#ffffff',4),line(p(0,0),p(0,2),'#e0bd35',5),line(p(0,2),p(2,2),'#e0bd35',5),line(p(2,2),p(2,0),'#e0bd35',5),line(p(2,0),p(0,0),'#e0bd35',5),line(p(7,6),p(9,6),'#d94e4e',4),line(p(9,6),p(8,8),'#d94e4e',4),line(p(8,8),p(7,6),'#d94e4e',4),line(p(0,8),p(1,7),'#e38b35',4),line(p(1,7),p(2,8),'#e38b35',4),line(p(2,8),p(0,8),'#e38b35',4)
+  line(p(3,3),p(4,4),'#f3d7b2',4),line(p(4,4),p(5,4),'#f3d7b2',4),line(p(0,0),p(0,2),'#e0bd35',5),line(p(0,2),p(2,2),'#e0bd35',5),line(p(2,2),p(2,0),'#e0bd35',5),line(p(2,0),p(0,0),'#e0bd35',5),line(p(7,6),p(9,6),'#d94e4e',4),line(p(9,6),p(8,8),'#d94e4e',4),line(p(8,8),p(7,6),'#d94e4e',4),line(p(0,8),p(1,7),'#e38b35',4),line(p(1,7),p(2,8),'#e38b35',4),line(p(2,8),p(0,8),'#e38b35',4)
  ]},
  {id:'pattern',name:'ひかりのもよう',level:'ちょっとむずかしい',lines:[
   ...[[0,4],[2,7],[4,9],[7,7],[9,4],[7,1],[4,0],[2,1]].map(([r,c],i)=>line(p(4,4),p(r,c),['#d94e4e','#e38b35','#e0bd35','#4d9761','#3c82c4','#6657b8','#c45a91','#d94e4e'][i],4)),
@@ -241,7 +241,7 @@ function showPreview(w={name:'わたしの作品',lines:state.lines,background:s
 function downloadPNG(){let svg=svgFor(state,{dots:false}),xml=new XMLSerializer().serializeToString(svg),blob=new Blob([xml],{type:'image/svg+xml'}),url=URL.createObjectURL(blob),img=new Image();img.onload=()=>{let c=document.createElement('canvas');c.width=c.height=1200;let x=c.getContext('2d');x.fillStyle=state.background;x.fillRect(0,0,1200,1200);x.drawImage(img,0,0,1200,1200);URL.revokeObjectURL(url);c.toBlob(b=>{let a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='つないでアート.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)},'image/png')};img.src=url}
 function clearAll(){if(!state.lines.length)return;if(confirm('かいた線をぜんぶけしますか？')){commit();state.lines=[];state.selected=null;renderArt()}}
 COLORS.forEach(c=>{let b=document.createElement('button');b.className='color-btn'+(c===state.color?' active':'');b.style.background=c;b.setAttribute('aria-label',`色 ${c}`);b.onclick=()=>{state.color=c;$$('.color-btn').forEach(x=>x.classList.toggle('active',x===b))};$('#colors').append(b)});
-$$$('.tab').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('#drawBtn').onclick=()=>{state.tool='draw';$('#drawBtn').classList.add('active');$('#eraseBtn').classList.remove('active')};$('#eraseBtn').onclick=()=>{state.tool='erase';state.selected=null;$('#eraseBtn').classList.add('active');$('#drawBtn').classList.remove('active');renderArt()};
+$('.tab').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));$('#drawBtn').onclick=()=>{state.tool='draw';$('#drawBtn').classList.add('active');$('#eraseBtn').classList.remove('active')};$('#eraseBtn').onclick=()=>{state.tool='erase';state.selected=null;$('#eraseBtn').classList.add('active');$('#drawBtn').classList.remove('active');renderArt()};
 $$('.width-btn').forEach(b=>b.onclick=()=>{state.width=+b.dataset.width;$$('.width-btn').forEach(x=>x.classList.toggle('active',x===b))});
 $('#undoBtn').onclick=()=>{if(state.undo.length){state.redo.push(snapshot());restore(state.undo.pop())}};$('#redoBtn').onclick=()=>{if(state.redo.length){state.undo.push(snapshot());restore(state.redo.pop())}};$('#bgColor').oninput=e=>{if(state.background!==e.target.value){commit();state.background=e.target.value;renderArt()}};$('#clearBtn').onclick=clearAll;$('#saveBtn').onclick=saveWork;$('#pngBtn').onclick=downloadPNG;$('#chooseSampleBtn').onclick=()=>$('#sampleDialog').showModal();$('#galleryBtn').onclick=gallery;$('#previewBtn').onclick=()=>{state.showDots=!state.showDots;$('#previewBtn').textContent=state.showDots?'点をかくす':'点を見せる';renderArt()};
 $$('[data-close="gallery"]').forEach(b=>b.onclick=()=>$('#galleryDialog').close());$$('[data-close="preview"]').forEach(b=>b.onclick=()=>$('#previewDialog').close());
