@@ -244,6 +244,34 @@ const samples=[{
     {from:87,to:65,color:'#d94e4e',width:6}
   ]
 }
+
+, {
+  id:'sample-kaidan-009',
+  name:'階段',
+  level:'ふつう',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:84,to:86,color:'#222222',width:6},
+    {from:86,to:66,color:'#222222',width:6},
+    {from:66,to:57,color:'#222222',width:6},
+    {from:57,to:37,color:'#222222',width:6},
+    {from:28,to:26,color:'#222222',width:6},
+    {from:86,to:68,color:'#222222',width:6},
+    {from:28,to:68,color:'#222222',width:6},
+    {from:82,to:84,color:'#222222',width:6},
+    {from:62,to:82,color:'#222222',width:6},
+    {from:53,to:62,color:'#222222',width:6},
+    {from:53,to:43,color:'#222222',width:6},
+    {from:43,to:33,color:'#222222',width:6},
+    {from:33,to:24,color:'#222222',width:6},
+    {from:62,to:66,color:'#222222',width:6},
+    {from:53,to:57,color:'#222222',width:6},
+    {from:33,to:37,color:'#222222',width:6},
+    {from:24,to:28,color:'#222222',width:6},
+    {from:37,to:28,color:'#222222',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
