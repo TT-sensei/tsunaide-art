@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
   <meta name="theme-color" content="#f7f3ea">
   <title>つないでアート</title>
-  <link rel="stylesheet" href="style.css?v=20261012g">
+  <link rel="stylesheet" href="style.css?v=20261012h">
 </head>
 <body>
 <header class="app-header">
@@ -65,7 +65,7 @@
   <input id="teacherName" class="teacher-input" maxlength="40" placeholder="例：くるま、春の花">
   <label class="teacher-label" for="teacherLevel">むずかしさ</label>
   <select id="teacherLevel" class="teacher-input"><option>かんたん</option><option selected>ふつう</option><option>ちょっとむずかしい</option></select>
-  <div class="teacher-actions"><button id="registerSampleBtn" class="button">今の作品をお手本に登録</button><button id="exportSamplesBtn" class="button secondary">お手本を書き出す</button></div>
+  <div class="teacher-actions"><button id="registerSampleBtn" class="button">今の作品をお手本に登録</button><button id="copySampleCodeBtn" class="button secondary">今の作品のコードをコピー</button></div><div class="teacher-actions"><button id="exportSamplesBtn" class="button secondary">お手本を書き出す</button></div>
   <div class="teacher-actions"><label class="button secondary file-button" for="importSamplesFile">お手本データを読み込む</label><input id="importSamplesFile" type="file" accept=".json,application/json" hidden></div>
   <p class="teacher-help">別の端末へ移すときは「書き出す」で保存し、移動先で「読み込む」を使います。読み込んだデータは、登録済みのお手本に追加されます。</p>
   <h3 class="teacher-subhead">登録したお手本</h3><div id="teacherSamplesList" class="teacher-samples-list"></div>
@@ -74,5 +74,5 @@
 <dialog id="galleryDialog"><div class="dialog-head"><h2>保存した作品</h2><button class="close" data-close="gallery" aria-label="閉じる">×</button></div><div id="galleryList" class="card-grid"></div><p id="emptyGallery" class="empty">まだ作品はありません。</p></dialog>
 <dialog id="previewDialog"><div class="dialog-head"><h2 id="previewTitle">作品</h2><button class="close" data-close="preview" aria-label="閉じる">×</button></div><div id="previewBoard" class="preview-board"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20261012g"></script>
+<script src="app.js?v=20261012h"></script>
 </body></html>
