@@ -54,3 +54,15 @@ button:focus-visible{outline:3px solid #e38b35;outline-offset:2px}
 .teacher-sample-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:9px;padding:7px 9px;font-size:14px}
 .teacher-sample-row span{min-width:0;overflow-wrap:anywhere}
 @media(max-width:600px){.app-header{gap:6px}.header-actions{gap:5px}.header-actions .button{font-size:12px;padding:8px 9px}.navi-group-decoration{display:none}#teacherDialog{width:96vw}}
+
+
+/* お手本と点を確実に見せる：スマートフォンでは縮小グリッド配置を解除 */
+.dot.visible{fill:#53645f;stroke:#fff;stroke-width:2}
+.dot.visible:hover,.dot.visible.selected{fill:#e47a42}
+@media(max-width:600px){
+  .sample-panel{display:block!important}
+  .sample-panel .panel-title,.sample-panel .work-name,.sample-panel .board-wrap,.sample-panel .match-info{grid-column:auto;grid-row:auto}
+  .sample-panel .work-name{text-align:center;height:auto;margin:4px 0}
+  .sample-panel .board-wrap{width:min(100%,240px);max-width:240px;min-height:0;aspect-ratio:1;margin:8px auto}
+  .sample-panel .match-info{text-align:center;min-height:18px}
+}
