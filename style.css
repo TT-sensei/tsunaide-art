@@ -35,3 +35,8 @@ button:focus-visible{outline:3px solid #e38b35;outline-offset:2px}
   .toolbar{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}
   .tool-group{flex:0 0 auto}
 }
+
+
+/* 自由制作ではお手本を完全に隠し、作品を描くスペースを広く使う */
+.workspace.free .sample-panel{display:none!important}
+.message.free:after{content:none!important}
