@@ -74,6 +74,48 @@ const samples=[{
     {from:85,to:86,color:'#4d9761',width:6}
   ]
 }
+,
+{
+  id:'sample-yuki-003',
+  name:'雪のけっしょう',
+  level:'ちょっとむずかしい',
+  gridSize:10,
+  background:'#ffffff',
+  lines:[
+    {from:14,to:84,color:'#3c82c4',width:6},
+    {from:84,to:85,color:'#3c82c4',width:6},
+    {from:85,to:15,color:'#3c82c4',width:6},
+    {from:14,to:15,color:'#3c82c4',width:6},
+    {from:21,to:12,color:'#3c82c4',width:6},
+    {from:12,to:78,color:'#3c82c4',width:6},
+    {from:78,to:87,color:'#3c82c4',width:6},
+    {from:87,to:21,color:'#3c82c4',width:6},
+    {from:17,to:28,color:'#3c82c4',width:6},
+    {from:28,to:82,color:'#3c82c4',width:6},
+    {from:82,to:71,color:'#3c82c4',width:6},
+    {from:71,to:17,color:'#3c82c4',width:6},
+    {from:41,to:51,color:'#3c82c4',width:6},
+    {from:51,to:58,color:'#3c82c4',width:6},
+    {from:48,to:58,color:'#3c82c4',width:6},
+    {from:48,to:41,color:'#3c82c4',width:6},
+    {from:48,to:39,color:'#3c82c4',width:6},
+    {from:58,to:69,color:'#3c82c4',width:6},
+    {from:28,to:29,color:'#3c82c4',width:6},
+    {from:17,to:7,color:'#3c82c4',width:6},
+    {from:15,to:6,color:'#3c82c4',width:6},
+    {from:14,to:3,color:'#3c82c4',width:6},
+    {from:12,to:2,color:'#3c82c4',width:6},
+    {from:21,to:20,color:'#3c82c4',width:6},
+    {from:41,to:30,color:'#3c82c4',width:6},
+    {from:51,to:60,color:'#3c82c4',width:6},
+    {from:71,to:70,color:'#3c82c4',width:6},
+    {from:82,to:92,color:'#3c82c4',width:6},
+    {from:84,to:93,color:'#3c82c4',width:6},
+    {from:85,to:96,color:'#3c82c4',width:6},
+    {from:87,to:97,color:'#3c82c4',width:6},
+    {from:78,to:79,color:'#3c82c4',width:6}
+  ]
+}
 ];
 const CUSTOM_KEY='tsunaide-art-custom-samples';
 function readCustomSamples(){try{const data=JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');return Array.isArray(data)?data.filter(validSample):[]}catch(_){return []}}
