@@ -40,3 +40,17 @@ button:focus-visible{outline:3px solid #e38b35;outline-offset:2px}
 /* 自由制作ではお手本を完全に隠し、作品を描くスペースを広く使う */
 .workspace.free .sample-panel{display:none!important}
 .message.free:after{content:none!important}
+
+
+/* 先生用のお手本管理 */
+.header-actions{display:flex;align-items:center;gap:8px;position:relative;z-index:3;flex:0 0 auto}
+.teacher-help{font-size:14px;line-height:1.65;color:var(--muted);max-width:650px}
+.teacher-label{display:block;font-size:13px;font-weight:700;margin:12px 0 5px}
+.teacher-input{width:100%;max-width:480px;padding:11px;border:1px solid var(--line);border-radius:9px;font:inherit;background:#fff;color:var(--ink)}
+.teacher-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.file-button{display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.teacher-subhead{font-size:15px;margin:20px 0 8px}
+.teacher-samples-list{display:grid;gap:7px;max-height:220px;overflow:auto}
+.teacher-sample-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);border-radius:9px;padding:7px 9px;font-size:14px}
+.teacher-sample-row span{min-width:0;overflow-wrap:anywhere}
+@media(max-width:600px){.app-header{gap:6px}.header-actions{gap:5px}.header-actions .button{font-size:12px;padding:8px 9px}.navi-group-decoration{display:none}#teacherDialog{width:96vw}}
