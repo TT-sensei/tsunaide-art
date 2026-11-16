@@ -19,11 +19,9 @@
 
 `index.html`をブラウザーで開いてください。ローカルファイルでも動作します。
 
-## GitHub Pagesで公開
+## 公開ページ
 
-1. このフォルダーの中身をGitHubリポジトリのルートへアップロードします。
-2. GitHubの **Settings → Pages** を開きます。
-3. **Deploy from a branch**、`main`、`/(root)` を選んで保存します。
+[GitHub Pagesで開く](https://tt-sensei.github.io/tsunaide-art/)
 
 ## お手本の追加
 
